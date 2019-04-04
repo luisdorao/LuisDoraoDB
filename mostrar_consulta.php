@@ -24,10 +24,9 @@
     /* vincular las variables de resultados */
     mysqli_stmt_bind_result($sentencia, $Nombre, $Apellido1);
     /* obtener los valores */
-		$Nombre = "Fulano";
-		$Fila = 1; echo $Fila;
+		$Fila = 1;
 		while (mysqli_stmt_fetch($sentencia)) {
-        echo "Fila: ".$Fila."<br>".
+        echo "Fila: ".$Fila++."<br>".
 						"Nombre:".$Nombre."<br> ".
             "Apellidos: {$row['Apellido1']} {$row['Apellido2']} <br> ".
             "Curso: {$row['curso']} <br> ".
