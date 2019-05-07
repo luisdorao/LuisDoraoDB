@@ -6,6 +6,6 @@
   </head>
   <body>
     <?php
-    echo "<h1>Funciona!</h1>"; ?>
+    echo "<h1>PHP Funciona!</h1>"; ?>
   </body>
 </html>

@@ -6,24 +6,28 @@ CREATE TABLE Cursos (
     curso_txt varchar(25),
     gasto_material SMALLINT UNSIGNED,
     PRIMARY KEY (id)
-    );
+    )
+    ENGINE=InnoDB;
 CREATE TABLE Familias (
     id int(5) not null auto_increment,
     apellido1 varchar(30),
     apellido2 varchar(30),
     email varchar(40),
     PRIMARY KEY (id)
-    );
+    )
+    ENGINE=InnoDB;
 CREATE TABLE Alumnos (
     id int(5) not null auto_increment,
     nombre varchar(20),
     id_familia int(5),
     id_curso varchar(3),
     letra varchar(1),
+    beca float,
     PRIMARY KEY (id),
     CONSTRAINT FK_id_familia FOREIGN KEY (id_familia) REFERENCES Familias(id),
     CONSTRAINT FK_id_curso FOREIGN KEY (id_curso) REFERENCES Cursos(id)
-    );
+    )
+    ENGINE=InnoDB;
 INSERT INTO Cursos (id, curso_txt, gasto_material) VALUES
     ("HH2", "Haur Hezkuntza 2 Urte", 30),
     ("HH3", "Haur Hezkuntza 3 Urte", 35),

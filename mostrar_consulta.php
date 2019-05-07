@@ -15,11 +15,11 @@
 	  AND Alumnos.id_curso = Cursos.id
 	  ORDER BY curso;';
 	echo '<h2>'.$descripcion.'</h2>';
-	if($result = mysqli_query($enlace, $sql)){
-		muestra_resultados($result);
+	if ($result = mysqli_query($enlace, $sql)){
+		tabla_resultados($result);
+		#muestra_resultados($result);
 		}
 		mysqli_close($enlace);
-		echo 'Conexión CERRADA... ';
 	?>
 </body>
 </html>
