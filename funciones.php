@@ -20,6 +20,19 @@ function conexion_mysql(){
     echo '<p>Conexión Correcta... </p>';
 }
 
+function campos_tabla($enlace, $tabla){
+    $sql="SHOW COLUMNS FROM $tabla;";
+    $cabeceras=array();
+    if ($describe_columnas = mysqli_query($enlace, $sql)){
+      while ($row = mysqli_fetch_assoc($describe_columnas)){
+        $cabeceras[]= $row["Field"];
+      }
+      return $cabeceras;
+    }
+    else die ('No existe esa tabla');
+}
+
+/* ANULADA POR tabla_resultados() QUE MUESTRA RESULTADOS EN TABLA
 function muestra_resultados($result){
       $fila = 1;
   	  $cabeceras = mysqli_fetch_fields ( $result );
@@ -32,6 +45,7 @@ function muestra_resultados($result){
   	      }
           echo "Datos Recuperados Correctamente<br>";
 }
+*/
 
 function tabla_resultados($result){
   $cabeceras = mysqli_fetch_fields( $result );

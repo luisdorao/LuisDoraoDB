@@ -1,4 +1,13 @@
-.resultados{
+.resultados {
   color : blue;
   background-color: cyan;
+}
+
+table.resultados {
+  border: 3px solid green;
+}
+
+th, td {
+  border: 1px solid green;
+  text-align: left;
 }
