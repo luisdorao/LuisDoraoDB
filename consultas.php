@@ -8,7 +8,7 @@ encabezado_html("Menú de consultas");
      <li> <a href="alumnos_por_curso.php"> Alumnos de un curso </a></li>
           <ul>
           <?php
-            $cursos = cursos (conexion_mysql());
+            $cursos = cursos(conexion_mysql());
             foreach ($cursos as $curso){
               echo '<li> <a href="alumnos_por_curso.php?curso='.$curso.'" > '.$curso.' </li>';
             }
