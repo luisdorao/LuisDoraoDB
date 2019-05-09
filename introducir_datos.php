@@ -11,6 +11,10 @@
   foreach ($campos as $campo) {
     echo $campo."<br>";
   };
+	$campos = campos_tipo_tabla(conexion_mysql(), $_GET["tabla"]);
+  foreach ($campos as $campo) {
+    echo $campo."<br>";
+  };
   /*
 	$enlace = conexion_mysql();
 	$descripcion = 'Alumnos por cursos y gastos';
