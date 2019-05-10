@@ -1,8 +1,7 @@
 <?php
 require 'funciones.php';
-#encabezado_html("Menú de consultas");
+encabezado_html("Menú de consultas");
  ?>
-<body>
    <h1>Consultas disponibles</h1>
    <ol>
      <li> Alumnos de un curso </li>
@@ -35,3 +34,4 @@ require 'funciones.php';
      </ul>
    </ol>
  </body>
+ </html>

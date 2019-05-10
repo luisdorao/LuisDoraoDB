@@ -1,13 +1,28 @@
-.resultados {
-  color : blue;
-  background-color: cyan;
+* {
+  font-family: sans-serif;
 }
 
 table.resultados {
   border: 3px solid green;
+  background-color: cyan;
+}
+
+table.tabla_array {
+  background-color: green;
 }
 
 th, td {
   border: 1px solid green;
   text-align: left;
+}
+
+th {
+  background-color: red;
+  color : white;
+  padding: 5px;
+}
+
+td {
+  background-color: yellow;
+  padding: 2 5px;
 }

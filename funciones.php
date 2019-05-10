@@ -108,4 +108,19 @@ function tabla_resultados($result){
   };
   echo "</table>";
 }
+
+# Imprime una tabla con el contenido de un array asociativo
+function tabla_associativo($array_asoc){
+  echo '<table class="tabla_array"><tr>';
+  echo '<th>Clave</th>';
+  echo '<th>Valor</th>';
+  echo '</tr>';
+  foreach ($array_asoc as $clave=>$valor){
+    echo '<tr>';
+    echo '<td>'.$clave.'</td>';
+    echo '<td>'.$valor.'</td>';
+    echo '<tr>';
+  };
+  echo "</table>";
+}
 ?>

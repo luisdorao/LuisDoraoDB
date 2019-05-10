@@ -7,10 +7,8 @@
 	$descripcion = "Campos de la tabla: ".$_GET["tabla"];
 	echo '<h2>'.$descripcion.'</h2>';
 	if ($campos = campos_tipo_tabla($enlace, $_GET["tabla"])){
-		foreach ($campos as $campo=>$dato) {
-      echo $campo. " es de tipo: ".$dato."<br>";
-    };
-		}
+		tabla_associativo($campos);
+				}
 		mysqli_close($enlace);
 		pie_html();
 	?>
