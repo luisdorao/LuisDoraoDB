@@ -1,16 +1,16 @@
 <?php
 require 'funciones.php';
-encabezado_html("Menú de consultas");
+#encabezado_html("Menú de consultas");
  ?>
- <body>
+<body>
    <h1>Consultas disponibles</h1>
    <ol>
-     <li> <a href="alumnos_por_curso.php"> Alumnos de un curso </a></li>
+     <li> Alumnos de un curso </li>
           <ul>
           <?php
             $cursos = cursos(conexion_mysql());
-            foreach ($cursos as $curso){
-              echo '<li> <a href="alumnos_por_curso.php?curso='.$curso.'" > '.$curso.' </li>';
+            foreach ($cursos as $id=>$curso){
+              echo '<li> <a href="alumnos_por_curso.php?curso='.$id.'" > '.$curso.' </a></li>';
             }
            ?>
           </ul>
@@ -19,16 +19,19 @@ encabezado_html("Menú de consultas");
         <ul>
           <?php
             $tablas = tablas_bd(conexion_mysql());
-            foreach ($tablas as $nombre) {
-              echo '<li> <a href="campos_tabla.php?tabla='.$nombre.'"> '.$nombre.' </li>';
+            foreach ($tablas as $tabla) {
+              echo '<li> <a href="campos_tabla.php?tabla='.$tabla.'"> '.$tabla.' </a></li>';
             }
-      ?>
+            ?>
         </ul>
-     <li> <a href="elegir_tabla.php"> Seleccionar una tabla </a> </li>
      <li> Introducir datos </li>
      <ul>
-       <li> <a href="introducir_datos.php?tabla=Alumnos"> Introducir datos </a></li>
+       <?php
+         $tablas = tablas_bd(conexion_mysql());
+         foreach ($tablas as $tabla) {
+           echo '<li> <a href="introducir_datos.php?tabla='.$tabla.'"> '.$tabla.' </a></li>';
+         }
+       ?>
      </ul>
-
    </ol>
  </body>

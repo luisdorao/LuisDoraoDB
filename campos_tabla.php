@@ -3,19 +3,14 @@
 	ini_set('display_errors', '1');
 	require 'funciones.php';
 	encabezado_html("Campos de una tabla");
-	?>
-<body>
-	<?php
 	$enlace = conexion_mysql();
 	$descripcion = "Campos de la tabla: ".$_GET["tabla"];
 	echo '<h2>'.$descripcion.'</h2>';
-	if ($campos = campos_tabla($enlace, $_GET["tabla"])){
-		foreach ($campos as $dato) {
-      echo $dato."<br>";
+	if ($campos = campos_tipo_tabla($enlace, $_GET["tabla"])){
+		foreach ($campos as $campo=>$dato) {
+      echo $campo. " es de tipo: ".$dato."<br>";
     };
-		#muestra_resultados($result);
 		}
 		mysqli_close($enlace);
+		pie_html();
 	?>
-</body>
-</html>

@@ -11,7 +11,16 @@ function encabezado_html($title){
     <head>
     	<title> '.$title.' </title>
       <link rel="stylesheet" href="css/estilos.css" />
-    </head>';
+    </head>
+    <body>';
+}
+# Imprime un pie de página html
+function pie_html(){
+  echo '
+  <hr>
+  <a href="consultas.php" >Volver al listado de consultas</a>
+  </body>
+  </html>';
 }
 
 # Devuelve una conexion a base de datos a partir de las variables definidas
@@ -53,28 +62,29 @@ function campos_tabla($enlace, $tabla){
     else die ('No existe esa tabla');
 }
 
-# Devuelve el array $cabeceras con los nombres y los tipos de introducir_datos
+# Devuelve el array asociativo $cabeceras con los nombres y los tipos de introducir_datos
 # de los campos de una tabla
 function campos_tipo_tabla($enlace, $tabla){
     $sql="SHOW COLUMNS FROM $tabla;";
     $cabeceras=array();
     if ($describe_columnas = mysqli_query($enlace, $sql)){
       while ($row = mysqli_fetch_assoc($describe_columnas)){
-        $cabeceras[]= $row["Field"]." ( Tipo: ".$row["Type"]." )";
+        $cabeceras[$row["Field"]]=$row["Type"];
       }
       return $cabeceras;
     }
     else die ('No existe esa tabla');
 }
 
-# Devuelve un array con los cursos de la escuela
+# Devuelve un array asociativo id->curso_txt con los cursos de la escuela
 function cursos($enlace){
-    $sql="SELECT curso_txt FROM cursos;";
-    $cursos=array();
+    $sql = "SELECT id, curso_txt FROM cursos;";
+    $cursos = array();
     if ($resultado = mysqli_query($enlace, $sql)){
       while ($row = mysqli_fetch_assoc($resultado)){
-        $cursos[]= $row["curso_txt"];
+        $cursos[$row[id]]= $row["curso_txt"];
       }
+    }
       return $cursos;
 }
 
@@ -83,15 +93,19 @@ function cursos($enlace){
 function tabla_resultados($result){
   $cabeceras = mysqli_fetch_fields( $result );
   echo '<table class="resultados"><tr>';
+  echo '<th>Nr.</th>';
   foreach ($cabeceras as $titulo){
     echo "<th>".$titulo->name."</th>";
   };
   echo "</tr>";
+  $nr=1;
   while ($row = mysqli_fetch_assoc($result)){
     echo "<tr>";
+    echo "<td>".$nr++."</td>";
     foreach ($row as $valor){
       echo "<td>".$valor."</td>";
     }
   };
+  echo "</table>";
 }
 ?>
