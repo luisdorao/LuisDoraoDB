@@ -123,4 +123,33 @@ function tabla_associativo($array_asoc){
   };
   echo "</table>";
 }
+
+# Crea formulario para una tabla en una base de datos conectada por $enlace
+function formulario_tabla($enlace, $tabla){
+  $array_campos = campos_tipo_tabla ($enlace, $tabla);
+  echo '<h2>Formulario para la tabla '.$tabla.'</h2>';
+  foreach ($array_campos as $campo => $tipo) {
+    echo $campo." - ".$tipo;
+    echo '<input name="'.$campo.'" type="'.tipo_input($tipo).'" placeholder="introducir '.$campo.'">';
+    echo "<br>\n";
+  }
+}
+
+# Devuelve el tipo de input para cada formulario según el tipo de dato
+function tipo_input($tipo_dato){
+  $tipo_array = explode("(",$tipo_dato);
+  $tipo_txt = $tipo_array[0];
+  switch ($tipo_txt):
+    case "int";
+    case "float";
+        return "number";
+        break;
+    case "varchar":
+        return "text";
+        break;
+    default:
+        return "no-definido";
+endswitch;
+}
+
 ?>
