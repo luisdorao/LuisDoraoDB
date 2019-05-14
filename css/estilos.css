@@ -1,7 +1,9 @@
 * {
   font-family: sans-serif;
 }
-
+html {
+  background-color: rgb(228, 225, 200)
+}
 table.resultados {
   border: 3px solid rgb(32, 173, 95);
   background-color: cyan;
@@ -23,6 +25,6 @@ th {
 }
 
 td {
-  background-color: rgb(227, 222, 172);
+  background-color: rgb(228, 225, 200);
   padding: 2 5px;
 }

@@ -62,8 +62,8 @@ function campos_tabla($enlace, $tabla){
     else die ('No existe esa tabla');
 }
 
-# Devuelve el array asociativo $cabeceras con los nombres y los tipos de introducir_datos
-# de los campos de una tabla
+# Devuelve el array asociativo $cabeceras con los nombres y
+# los tipos de datos de los campos de una tabla
 function campos_tipo_tabla($enlace, $tabla){
     $sql="SHOW COLUMNS FROM $tabla;";
     $cabeceras=array();
@@ -89,7 +89,7 @@ function cursos($enlace){
 }
 
 # Imprime una tabla con los resultados de una consulta $resultado
-# Cabecera con los nombres de los campos y filas con datos
+# Incluyes cabecera con los nombres de los campos y filas con datos
 function tabla_resultados($result){
   $cabeceras = mysqli_fetch_fields( $result );
   echo '<table class="resultados"><tr>';
@@ -128,24 +128,50 @@ function tabla_associativo($array_asoc){
 function formulario_tabla($enlace, $tabla){
   $array_campos = campos_tipo_tabla ($enlace, $tabla);
   echo '<h2>Formulario para la tabla '.$tabla.'</h2>';
+    echo '<input type="hidden" name="tabla" value="'.$tabla.'">';
   foreach ($array_campos as $campo => $tipo) {
+    $actual= isset($_POST[$campo])? $_POST[$campo] : "";
     echo $campo." - ".$tipo;
-    echo '<input name="'.$campo.'" type="'.tipo_input($tipo).'" placeholder="introducir '.$campo.'">';
+    echo '<input name="'.$campo.'" '.tipo_input($tipo).' placeholder="'.$actual.'">';
     echo "<br>\n";
   }
 }
 
-# Devuelve el tipo de input para cada formulario según el tipo de dato
+########################################################
+# Funciones para validar las entradas de un formulario #
+########################################################
+
+# Comprobar si un texto no esta vacío
+function es_cadena_vacia(string $texto): bool {
+  return (trim($texto) == '');
+}
+
+# Comprobar si es un número entero
+function es_entero(string $numero): bool {
+  return (filter_var($numero, FILTER_VALIDATE_INT) === FALSE) ? False : True;
+}
+
+# Comprobar si es un formato de E-Mail
+function es_email(string $texto): bool {
+  return (filter_var($texto, FILTER_VALIDATE_EMAIL) === FALSE) ? False : True;
+}
+
+
+# Devuelve el tipo de input para cada formulario
+# según el tipo de dato de la tabla de la base de datos
 function tipo_input($tipo_dato){
   $tipo_array = explode("(",$tipo_dato);
   $tipo_txt = $tipo_array[0];
   switch ($tipo_txt):
     case "int";
+    case "smallint";
+        return 'type= "number" step="1" min="0"';
+        break;
     case "float";
-        return "number";
+        return 'type= "number" step="0.01" min ="0"';
         break;
     case "varchar":
-        return "text";
+        return 'type="text"';
         break;
     default:
         return "no-definido";
