@@ -128,18 +128,53 @@ function tabla_associativo($array_asoc){
 function formulario_tabla($enlace, $tabla){
   $array_campos = campos_tipo_tabla ($enlace, $tabla);
   echo '<h2>Formulario para la tabla '.$tabla.'</h2>';
-    echo '<input type="hidden" name="tabla" value="'.$tabla.'">';
+  echo '<input type="hidden" name="tabla" value="'.$tabla.'">';
+  echo '<table>';
   foreach ($array_campos as $campo => $tipo) {
     $actual= isset($_POST[$campo])? $_POST[$campo] : "";
-    echo $campo." - ".$tipo;
-    echo '<input name="'.$campo.'" '.tipo_input($tipo).' placeholder="'.$actual.'">';
-    echo "<br>\n";
+    echo '<tr>';
+    echo '<td>'.$campo." - ".$tipo.'</td>';
+    echo '<td><input name="'.$campo.'" '.tipo_input($tipo).' value="'.$actual.'"></td>';
+    echo '</tr>';}
+  echo '</table>';
+}
+
+# Selecciona los campos de una $tabla de una base de datos $enlace que no son auto_increment
+# y se pedirán en un formulario. Devuelve un array asociativo $campos
+function campos_para_formulario($enlace, $tabla){
+  $sql="DESCRIBE $tabla;";
+  $campos=array();
+  if ($describe_columnas = mysqli_query($enlace, $sql)){
+    while ($row = mysqli_fetch_assoc($describe_columnas)){
+      if(!$row["Extra"]=="auto_increment"){
+        $campos[$row["Field"]]=$row["Type"];
+      }
+    }
+    return $campos;
   }
+  else die ('No existe esa tabla');
+  }
+
+# Crea formulario a partir de array asociativo $campo:$tipo_dato
+function formulario_para_assoc($array_asoc){
+  echo '<table>';
+  foreach ($array_asoc as $campo => $tipo) {
+    $actual= isset($_POST[$campo])? $_POST[$campo] : "";
+    echo '<tr>';
+    echo '<td>'.$campo." - ".$tipo.'</td>';
+    echo '<td><input name="'.$campo.'" '.tipo_input($tipo).' value="'.$actual.'"></td>';
+    echo '</tr>';}
+  echo '</table>';
 }
 
 ########################################################
 # Funciones para validar las entradas de un formulario #
+# a partir de un par $valor:$tipo                      #
 ########################################################
+
+function valido($valor, $tipo): bool {
+  return true;
+}
 
 # Comprobar si un texto no esta vacío
 function es_cadena_vacia(string $texto): bool {
@@ -175,7 +210,7 @@ function tipo_input($tipo_dato){
         break;
     default:
         return "no-definido";
-endswitch;
+  endswitch;
 }
 
 ?>

@@ -58,8 +58,3 @@ INSERT INTO Alumnos (nombre, id_familia, id_curso, letra) VALUES
     ("Florentino", 6, "LH4", "A"),
     ("Gema", 7, "HH5", "B")
     ;
-SELECT Alumnos.id, Nombre, Apellido1, Apellido2, curso_txt AS curso, letra, gasto_material AS EUR, email
-    FROM Alumnos INNER JOIN Familias INNER JOIN Cursos
-    ON Familias.id = Alumnos.id_familia
-    AND Alumnos.id_curso = Cursos.id
-    ORDER BY curso;
