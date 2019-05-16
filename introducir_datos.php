@@ -1,4 +1,5 @@
 <?php
+	require 'configuracion.php';
 	require 'funciones.php';
 	encabezado_html("Introducir datos en Luis Dorao DB");
 	echo "<h1>Introducir datos nuevos en ".$_GET["tabla"]."</h1>";

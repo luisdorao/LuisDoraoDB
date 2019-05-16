@@ -1,6 +1,9 @@
 DROP DATABASE IF EXISTS LUISDORAO;
 CREATE DATABASE LUISDORAO;
 USE LUISDORAO;
+DROP USER IF EXISTS 'secretaria'@'localhost';
+CREATE USER 'secretaria'@'localhost' IDENTIFIED BY 'secretariapass';
+GRANT SELECT ON luisdorao.* TO 'secretaria'@'localhost';
 CREATE TABLE Cursos (
     id varchar(3) NOT NULL,
     curso_txt varchar(25),

@@ -1,6 +1,5 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', '1');
+  require 'configuracion.php';
   require 'funciones.php';
   encabezado_html("Alumnos por curso");
 $enlace = conexion_mysql();

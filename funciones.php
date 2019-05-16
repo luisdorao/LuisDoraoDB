@@ -1,9 +1,4 @@
 <?php
-$dbhost = 'localhost:3366';
-$dbuser = 'root';
-$dbpass = 'root';
-$database = 'luisdorao';
-
 # Imprime un encabezado html común a varias páginas
 function encabezado_html($title){
     echo '
@@ -26,18 +21,16 @@ function pie_html(){
 # Devuelve una conexion a base de datos a partir de las variables definidas
 # $dbhost, $dbuser, $dbpass, $database
 function conexion_mysql(){
-    global $dbhost, $dbuser, $dbpass, $database;
     if(mysqli_connect_errno())
   	  {	die('No se pudo conectar a la base de datos: '
         . mysqli_connect_error());};
-  	return mysqli_connect( $dbhost,  $dbuser,  $dbpass,  $database);
-    echo '<p>Conexión Correcta... </p>';
+    return mysqli_connect( DBHOST,  DBUSER,  DBPASS,  DATABASE);
 }
 
 # Devuelve el array $nombres_tablas con los nombres de las tablas de
 # la base de datos correspondiente a una conexión $enlace
 function tablas_bd($enlace){
-    global $database;
+    $database = DATABASE;
     $sql="SHOW TABLES;";
     $nombres_tablas=array();
     if ($resultado = mysqli_query($enlace, $sql)){
