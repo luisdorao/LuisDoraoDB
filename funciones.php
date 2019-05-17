@@ -82,7 +82,7 @@ function cursos($enlace){
 }
 
 # Imprime una tabla con los resultados de una consulta $resultado
-# Incluyes cabecera con los nombres de los campos y filas con datos
+# Incluye cabecera con los nombres de los campos y filas con datos
 function tabla_resultados($result){
   $cabeceras = mysqli_fetch_fields( $result );
   echo '<table class="resultados"><tr>';
@@ -117,6 +117,7 @@ function tabla_associativo($array_asoc){
   echo "</table>";
 }
 
+/*
 # Crea formulario para una tabla en una base de datos conectada por $enlace
 function formulario_tabla($enlace, $tabla){
   $array_campos = campos_tipo_tabla ($enlace, $tabla);
@@ -131,9 +132,10 @@ function formulario_tabla($enlace, $tabla){
     echo '</tr>';}
   echo '</table>';
 }
+*/
 
 # Selecciona los campos de una $tabla de una base de datos $enlace que no son auto_increment
-# y se pedirán en un formulario. Devuelve un array asociativo $campos
+# y se pedirán en un formulario. Devuelve un array asociativo $campos [Field:Type]
 function campos_para_formulario($enlace, $tabla){
   $sql="DESCRIBE $tabla;";
   $campos=array();
@@ -151,12 +153,19 @@ function campos_para_formulario($enlace, $tabla){
 # Crea formulario a partir de array asociativo $campo:$tipo_dato
 function formulario_para_assoc($array_asoc){
   echo '<table>';
+  $error=FALSE;
   foreach ($array_asoc as $campo => $tipo) {
     $actual= isset($_POST[$campo])? $_POST[$campo] : "";
     echo '<tr>';
     echo '<td>'.$campo." - ".$tipo.'</td>';
     echo '<td><input name="'.$campo.'" '.tipo_input($tipo).' value="'.$actual.'"></td>';
-    echo '</tr>';}
+    if (!valido($actual,$tipo)) {
+      $error=TRUE;
+      echo '<td class="error">Contenido no válido</td>';
+    }
+    echo "</tr>\n";}
+    if ($error) {echo "resultado: FALLO";}
+    else {echo '<tr><td> <button type="button">P\'alante!</button> </td></tr>';} 
   echo '</table>';
 }
 
@@ -166,8 +175,9 @@ function formulario_para_assoc($array_asoc){
 ########################################################
 
 function valido($valor, $tipo): bool {
-  return true;
-}
+  if (trim($valor) == '') {return FALSE;}
+  else {return TRUE;}
+  }
 
 # Comprobar si un texto no esta vacío
 function es_cadena_vacia(string $texto): bool {

@@ -7,7 +7,6 @@
 	echo '<h2>Formulario para '.$_GET["tabla"].':</h2>';
 	formulario_para_assoc(campos_para_formulario(conexion_mysql(), $_GET["tabla"]));
 	echo '<input type="submit" value="Validar datos">';
-
 	echo '</form>';
 	pie_html();
 
