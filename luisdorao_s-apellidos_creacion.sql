@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS LUISDORAO;
-CREATE DATABASE LUISDORAO;
-USE LUISDORAO;
+DROP DATABASE IF EXISTS LUISDORAO_APELLIDOS;
+CREATE DATABASE LUISDORAO_APELLIDOS;
+USE LUISDORAO_APELLIDOS;
 DROP USER IF EXISTS 'secretaria'@'localhost';
 CREATE USER 'secretaria'@'localhost' IDENTIFIED BY 'secretariapass';
-GRANT SELECT ON LUISDORAO.*,LUISDORAO_APELLIDOS.* TO 'secretaria'@'localhost';
+GRANT SELECT ON LUISDORAO_APELLIDOS.* TO 'secretaria'@'localhost';
 CREATE TABLE Cursos (
     id varchar(3) NOT NULL,
     curso_txt varchar(25),
@@ -11,23 +11,23 @@ CREATE TABLE Cursos (
     PRIMARY KEY (id)
     )
     ENGINE=InnoDB;
-CREATE TABLE Familias (
+CREATE TABLE Hermanos (
     id int(5) not null auto_increment,
     apellido1 varchar(30),
     apellido2 varchar(30),
-    email varchar(40),
     PRIMARY KEY (id)
     )
     ENGINE=InnoDB;
 CREATE TABLE Alumnos (
     id int(5) not null auto_increment,
     nombre varchar(20),
-    id_familia int(5),
+    apellido1 varchar(30),
+    apellido2 varchar(30),
+    email varchar(40),
     id_curso varchar(3),
     letra varchar(1),
     beca float,
     PRIMARY KEY (id),
-    CONSTRAINT FK_id_familia FOREIGN KEY (id_familia) REFERENCES Familias(id),
     CONSTRAINT FK_id_curso FOREIGN KEY (id_curso) REFERENCES Cursos(id)
     )
     ENGINE=InnoDB;
@@ -43,21 +43,21 @@ INSERT INTO Cursos (id, curso_txt, gasto_material) VALUES
     ("LH5", "Lehen Hezkuntza 5", 90),
     ("LH6", "Lehen Hezkuntza 6", 100)
     ;
-INSERT INTO Familias (apellido1, apellido2, email) VALUES
-    ("Alonso", "Albar","alonso.albar@mail.com"),
-    ("Balenciaga", "Burgo", "balenciaga.burgo@mail.com"),
-    ("Cortes", "Calatrava", "cortes.calatrava@mail.com"),
-    ("Davila", "Duran", "davila.duran@mail.com"),
-    ("Estevez", "Estebaez", "estevez.estebanez@telefonica.net"),
-    ("Fernandez", "Flores", "fernandez.flores@terra.com"),
-    ("Garcia", "Gonzalez", "garcia.gonzalez@euskaltel.eus")
-    ;
-INSERT INTO Alumnos (nombre, id_familia, id_curso, letra) VALUES
-    ("Alberto", 1, "LH1", "A"),
-    ("Belen", 2, "HH3", "A"),
-    ("Carlos", 3, "LH3", "B"),
-    ("David", 4, "HH2", "A"),
-    ("Elena", 5, "LH6", "B"),
-    ("Florentino", 6, "LH4", "A"),
-    ("Gema", 7, "HH5", "B")
+/*INSERT INTO Hermanos (apellido1, apellido2, email) VALUES
+    (),
+    (),
+    (),
+    (),
+    (),
+    (),
+    ()
+    ;*/
+INSERT INTO Alumnos (nombre, apellido1, apellido2, email, id_curso, letra, beca) VALUES
+    ("Alberto", "Alonso", "Albar", "alonso.albar@mail.com", "LH1", "A", 50),
+    ("Belen", "Balenciaga", "Burgo", "balenciaga.burgo@mail.com", "HH3", "A", 0),
+    ("Carlos", "Cortes", "Calatrava", "cortes.calatrava@mail.com", "LH3", "B",0 ),
+    ("David", "Davila", "Duran", "davila.duran@mail.com", "HH2", "A", 0),
+    ("Elena", "Estevez", "Estebaez", "estevez.estebanez@telefonica.net", "LH6", "B", 0),
+    ("Florentino", "Fernandez", "Flores", "fernandez.flores@terra.com", "LH4", "A", 0),
+    ("Gema", "Garcia", "Gonzalez", "garcia.gonzalez@euskaltel.eus", "HH5", "B", 0)
     ;

@@ -7,9 +7,8 @@ $descripcion = 'Alumnos por cursos y gastos';
 $curso = $_GET["curso"];
 $sql = 'SELECT Alumnos.id, Nombre, Apellido1, Apellido2, curso_txt AS curso,
   letra, gasto_material AS "Material EUR", email
-  FROM Alumnos INNER JOIN Familias INNER JOIN Cursos
-  ON Familias.id = Alumnos.id_familia
-  AND Alumnos.id_curso = Cursos.id
+  FROM Alumnos INNER JOIN Cursos
+  ON Alumnos.id_curso = Cursos.id
   WHERE Cursos.id = "'.$curso.'"
   ORDER BY curso;';
 echo '<h2>'.$descripcion.'</h2>';
