@@ -40,5 +40,9 @@ encabezado_html("Menú de consultas");
        ?>
      </ul>
    </ol>
+   <?php
+    ayuda();
+    prueba_montar();
+    ?>
  </body>
  </html>

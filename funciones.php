@@ -164,8 +164,8 @@ function formulario_para_assoc($array_asoc){
       echo '<td class="error">Contenido no válido</td>';
     }
     echo "</tr>\n";}
-    if ($error) {echo "resultado: FALLO";}
-    else {echo '<tr><td> <button type="button">P\'alante!</button> </td></tr>';} 
+    if ($error) {echo '<p class="error">Hay campos no completados</p>';}
+    else {echo '<tr><td> <button type="button">Confirmar Datos</button> </td></tr>';}
   echo '</table>';
 }
 
@@ -216,4 +216,52 @@ function tipo_input($tipo_dato){
   endswitch;
 }
 
+#######################################
+#           FUNCIONES AJAX            #
+#######################################
+
+function ayuda(){
+  echo ('
+  <button id="boton_ayuda" type="button" onclick="loadDoc()">Pedir ayuda</button>
+  <p id="demo">La ayuda aparecerá aqui</p>
+  <script>
+  function loadDoc(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML = this.responseText;
+        }
+      else {
+        document.getElementById("demo").innerHTML=xhttp.statusText;
+      }
+      };
+    xhttp.open("GET", "texto_ayuda.txt", true);
+    xhttp.send();
+    }
+
+  </script>
+  ');
+}
+
+function prueba_montar(){
+  echo ('
+  <button type="button" onclick="loadDoc2()">Probar php</button>
+  <p id="demo2">Comprobar si php esta activo y funcionando</p>
+  <script>
+  function loadDoc2(){
+    var xhttp2 = new XMLHttpRequest();
+    xhttp2.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo2").innerHTML = this.responseText;
+        }
+      else {
+        document.getElementById("demo2").innerHTML=xhttp.statusText;
+      }
+      };
+    xhttp2.open("GET", "prueba.php", true);
+    xhttp2.send();
+    }
+  </script>
+  ');
+}
 ?>

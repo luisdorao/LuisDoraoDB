@@ -4,6 +4,11 @@
 html {
   background-color: rgb(228, 225, 200)
 }
+
+ol li {
+  margin: 5px;
+}
+
 table.resultados {
   border: 3px solid rgb(32, 173, 95);
   background-color: cyan;
@@ -27,4 +32,10 @@ th {
 td {
   background-color: rgb(228, 225, 200);
   padding: 2 5px;
+}
+
+.error {
+  background-color: rgb(195, 7, 7);
+  color: rgb(191, 195, 7);
+
 }
